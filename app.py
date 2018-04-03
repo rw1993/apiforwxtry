@@ -56,7 +56,7 @@ def valid(user_id, block_id, try_code):
     guess = "{}{}".format(latest["code"], try_code)
     guess_hash = hashlib.sha256(guess.encode()).hexdigest()
     print(guess_hash)
-    if guess_hash[-1] == "0000":
+    if guess_hash[-1] == "0":
         if int(block_id) != latest["id"]:
             return "invalid id"
         else:
