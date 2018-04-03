@@ -33,7 +33,11 @@ def main():
     cursor = con.cursor()
     create_sql = "create table user(uid text, coins integer, slogan text)"
     cursor.execute(create_sql)
-    create_account("weiyanjie", con, "fuck")
+    slogan = ("我的爱豆是瑞瑞，我在这里给他打call，"
+              "如果你也想给自己的爱豆打call，那么就设置slogan,"
+              "然后点击挖矿按钮挖矿,"
+              "我们会根据你拥有的爱豆币数量让你的slogan上首页哦~")
+    create_account("weiyanjie", con, slogan)
     add_one("weiyanjie", con)
     cursor.close()
     con.close()
