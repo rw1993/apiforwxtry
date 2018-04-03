@@ -85,7 +85,7 @@ def get_coin():
         block_id = int(request.form["block_id"])
         try_code = request.form["try_code"]
         return valid(user_id, block_id, try_code)
-    except:
+    except KeyError:
         print("invalid form")
         return "False"
 
