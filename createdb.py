@@ -39,7 +39,7 @@ def get_user_slogan(con, uid):
 def set_user_slogan(con, uid, slogan):
     cursor = con.cursor()
     sql = "update user set slogan=? where uid =?"
-    cursor.execute(sql, (uid, slogan))
+    cursor.execute(sql, (slogan, uid))
     con.commit()
     cursor.close()
     return slogan
