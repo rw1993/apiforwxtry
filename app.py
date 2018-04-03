@@ -97,13 +97,12 @@ def login():
     appid = "wx3d718a6a8c233b95"
     appsecret = "4f7cba202fcc95f99217c7ce96798318"
     url = "https://api.weixin.qq.com/sns/jscode2session?appid={}&secret={}&js_code={}&grant_type=authorization_code"
-    user_info = requests.get(url.format(appid, appsecret, code)).text
+    user_info = json.loads(requests.get(url.format(appid, appsecret, code)).text)
     return user_info["open_id"]
 
 def main():
     lock = redis_lock.RedisLock(r, "latestlock")
     try:
-        1 / 0
         app.run(host="192.168.1.71", port=443, debug=True, ssl_context=("../pem", "../key"))
     except:
         app.run(debug=True)
