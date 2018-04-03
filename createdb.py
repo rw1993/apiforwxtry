@@ -26,6 +26,24 @@ def select_slogan(con):
     slogans = [r[0] for r in rows]
     return np.random.choice(slogans, p=p)
 
+def get_user_slogan(con, uid):
+    cursor = con.cursor
+    sql = "select slogan from user where uid=?"
+    res = [slogan for slogan, in cursor.execute(sql, (uid))]
+    if not res:
+        create_account(con, uid)
+        return get_user_slogan(con, uid)
+    cursor.close()
+    return res[0]
+
+def set_user_slogan(con, uid, slogan):
+    cursor = con.cursor()
+    sql = "update user set slogan=? where uid =?"
+    cursor.execute(sql, (uid, slogan))
+    con.commit()
+    cursor.close()
+    return slogan
+
 
 def main():
     con = sqlite3.connect("bitads")

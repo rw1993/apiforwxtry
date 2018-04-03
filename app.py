@@ -2,7 +2,7 @@ from flask import Flask, request, g
 import requests
 import sqlite3
 import hashlib
-from createdb import add_one, select_slogan
+from createdb import add_one, select_slogan, get_user_slogan, set_user_slogan
 import json
 import redis
 import redis_lock
@@ -98,7 +98,21 @@ def login():
     appsecret = "4f7cba202fcc95f99217c7ce96798318"
     url = "https://api.weixin.qq.com/sns/jscode2session?appid={}&secret={}&js_code={}&grant_type=authorization_code"
     user_info = json.loads(requests.get(url.format(appid, appsecret, code)).text)
+    open_id = user_info["openid"]
     return user_info["openid"]
+
+@app.route("/get_user_slogan", methods=["GET"])
+def getting_user_slogan():
+    open_id = request.args["open_id"]
+    return get_user_slogan(get_db(), open_id)
+
+
+@app.route("/set_user_slogan", methods=["POST"])
+def settting_user_slogan():
+    open_id = request.args["open_id"]
+    slogan = request.args["slogan"]
+    return set_user_slogan(get_db(), open_id, slogan)
+    
 
 def main():
     lock = redis_lock.RedisLock(r, "latestlock")
