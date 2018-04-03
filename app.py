@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 
 def get_latest():
-    ret = json.loads(r.get("latest"))
+    ret = r.get("latest")
     if ret is None:
         latest = {
                 "code": "",
@@ -20,7 +20,7 @@ def get_latest():
         r.set("latest", json.dumps(latest))
         return get_latest()
     else:
-        return ret
+        return json.loads(ret)
 
 def set_latest(code, id_):
     lock = redis_lock.RedisLock(r, "latestlock")
