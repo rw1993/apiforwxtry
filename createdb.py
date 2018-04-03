@@ -31,7 +31,7 @@ def get_user_slogan(con, uid):
     sql = "select slogan from user where uid=?"
     res = [slogan for slogan, in cursor.execute(sql, (uid,))]
     if not res:
-        create_account(con, uid)
+        create_account(user_id=uid, con=con)
         return get_user_slogan(con, uid)
     cursor.close()
     return res[0]
