@@ -79,7 +79,8 @@ def latest_hash():
 
 @app.route("/get_coin", methods=["POST"])
 def get_coin():
-    request.form = request.data
+    request.form = json.loads(request.data)
+    print(request.form)
     try:
         user_id = request.form["user_id"]
         block_id = int(request.form["block_id"])
