@@ -109,8 +109,8 @@ def getting_user_slogan():
 
 @app.route("/set_user_slogan", methods=["POST"])
 def settting_user_slogan():
-    open_id = request.args["open_id"]
-    slogan = request.args["slogan"]
+    open_id = request.form["open_id"]
+    slogan = request.form["slogan"]
     return set_user_slogan(get_db(), open_id, slogan)
     
 
