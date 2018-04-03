@@ -27,7 +27,7 @@ def select_slogan(con):
     return np.random.choice(slogans, p=p)
 
 def get_user_slogan(con, uid):
-    cursor = con.cursor
+    cursor = con.cursor()
     sql = "select slogan from user where uid=?"
     res = [slogan for slogan, in cursor.execute(sql, (uid))]
     if not res:
