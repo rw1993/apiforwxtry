@@ -45,6 +45,7 @@ def cache_from_redis(expire=None):
 def get_db():
     if not hasattr(g, "db"):
         g.db = sqlite3.connect("bitads")
+        g.db.text_factory = str
     return g.db
 
 def valid(user_id, block_id, try_code):

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import sqlite3
 import numpy as np
 
@@ -28,15 +29,12 @@ def select_slogan(con):
 
 def main():
     con = sqlite3.connect("bitads")
+    con.text_factory = str
     cursor = con.cursor()
     create_sql = "create table user(uid text, coins integer, slogan text)"
     cursor.execute(create_sql)
     create_account("weiyanjie", con, "fuck")
     add_one("weiyanjie", con)
-    add_one("weiyanjie", con)
-    create_account("weiyanjie1", con, "what")
-    add_one("weiyanjie1", con)
-    import ipdb; ipdb.set_trace()
     cursor.close()
     con.close()
 
