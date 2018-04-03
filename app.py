@@ -28,7 +28,7 @@ def set_latest(code, id_):
         latest = {"code": code, "id": id_}
         r.set("latest", json.dumps(latest))
         lock.release()
-        return False
+        return True
     return False
 
 def cache_from_redis(expire=None):
