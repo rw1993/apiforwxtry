@@ -67,7 +67,7 @@ def valid(user_id, block_id, try_code):
     return "wrong guess hash"
 
 @app.route("/")
-@cache_from_redis(3600)
+@cache_from_redis(5)
 def index():
     # return slogan respect to the coins ader have
     return select_slogan(get_db())
