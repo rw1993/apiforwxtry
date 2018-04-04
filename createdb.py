@@ -2,6 +2,12 @@
 import sqlite3
 import numpy as np
 
+def get_user_coin_num(con, userid):
+    sql = "select num from user where userid=?"
+    cursor = con.cursor()
+    r = [num for num, in cursor.execute(sql, (userid,))][0]
+    return r
+
 def add_one(user_id, con):
     sql = "update user set coins = coins+1 where uid = ?"
     cursor = con.cursor()

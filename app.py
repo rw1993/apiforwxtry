@@ -2,7 +2,9 @@ from flask import Flask, request, g
 import requests
 import sqlite3
 import hashlib
-from createdb import add_one, select_slogan, get_user_slogan, set_user_slogan
+from createdb import (add_one, select_slogan,
+                      get_user_slogan, set_user_slogan,
+                      get_user_coin_num)
 import json
 import redis
 import redis_lock
@@ -101,7 +103,10 @@ def login():
     url = "https://api.weixin.qq.com/sns/jscode2session?appid={}&secret={}&js_code={}&grant_type=authorization_code"
     user_info = json.loads(requests.get(url.format(appid, appsecret, code)).text)
     open_id = user_info["openid"]
-    return user_info["openid"]
+    user = {}
+    user["open_id"] = open_id
+    user["num"] = get_user_coin_num(get_db(), open_id)
+    return json.dumps(user)
 
 @app.route("/get_user_slogan", methods=["GET"])
 def getting_user_slogan():
