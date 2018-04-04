@@ -3,7 +3,7 @@ import sqlite3
 import numpy as np
 
 def get_user_coin_num(con, userid):
-    sql = "select coins from user where userid=?"
+    sql = "select coins from user where uid=?"
     cursor = con.cursor()
     r = [num for num, in cursor.execute(sql, (userid,))][0]
     return int(r)
